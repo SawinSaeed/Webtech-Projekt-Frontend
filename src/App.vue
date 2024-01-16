@@ -1,41 +1,54 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div id="app">
+    <Navbar />
+    <router-view />
+    <button @click="changeBackground">Hintergrund ändern</button>
+  </div>
 </template>
 
+<script>
+import Navbar from './components/Navbar.vue'
+
+export default {
+  name: 'App',
+  components: {
+    Navbar
+  },
+  data() {
+    return {
+      bgIndex: 0, // Index des aktuellen Hintergrundbildes
+      bgImages: [ // Liste der Hintergrundbilder
+        'url(/picpic.jpg)',
+        'url(/coldaf.jpg)',
+        'url(/coldaf2.jpg)',
+        'url(/coldaf3.jpg)',
+      ]
+    }
+  },
+  methods: {
+    changeBackground() {
+      this.bgIndex = (this.bgIndex + 1) % this.bgImages.length; // Erhöht den Index und wickelt ihn um, wenn er das Ende der Liste erreicht
+      document.body.style.backgroundImage = this.bgImages[this.bgIndex]; // Ändert das Hintergrundbild
+    }
+  }
+}
+</script>
+
+<!-- Ihre vorhandenen Styles -->
+
+<!-- Ihre vorhandenen Styles -->
+
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
 nav {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+  z-index: 1000;
 }
 
 nav a.router-link-exact-active {
@@ -56,30 +69,27 @@ nav a:first-of-type {
   border: 0;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+button {
+    font-family: "Open Sans", sans-serif;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: aliceblue;
+    background-color: #007BFF;
+    border: none;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 5px;
   }
-
-  .logo {
-    margin: 0 2rem 0 0;
+  
+  button:hover {
+    background-color: #0056b3;
   }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  
+  button:active {
+    background-color: #003d80;
+    transform: translateY(2px);
   }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>

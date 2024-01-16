@@ -1,11 +1,16 @@
-import { describe, it, expect } from 'vitest'
+import { test, expect } from 'vitest'
+import { shallowMount, mount} from '@vue/test-utils'
+import AboutView from '@/views/AboutView.vue'
+import AppView from '@/views/AppView.vue'
+import axios from 'axios'
 
-import { mount } from '@vue/test-utils'
-import HelloWorld from '../HelloWorld.vue'
 
-describe('HelloWorld', () => {
-  it('renders properly', () => {
-    const wrapper = mount(HelloWorld, { props: { msg: 'Hello Vitest' } })
-    expect(wrapper.text()).toContain('Hello Vitest')
-  })
+
+// Erstellen Sie eine Spionfunktion für axios.post
+
+
+test('RegisterView.vue', () => {
+  let wrapper = shallowMount(AboutView)
+  const textelements = wrapper.find("h1").text()
+  expect(textelements).toEqual("Einkaufliste Aboutpage")
 })
