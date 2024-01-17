@@ -3,7 +3,7 @@ name: Run Tests
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   test:
@@ -24,4 +24,3 @@ jobs:
     - name: Run Tests
       run: npm run test
 
-      
